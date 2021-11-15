@@ -53,6 +53,23 @@ Clone the repository and catkin_make:
 ```
 (if you fail in this step, try to find another computer with clean system or reinstall Ubuntu and ROS)
 
+
+Example installation scripts
+```
+VINS_WS=/baselines/vinsfusion_ws
+CERES_SRC_DIR=/baselines
+cd $CERES_SRC_DIR
+git clone --recursive https://github.com/ceres-solver/ceres-solver.git
+cd $VINS_WS/build
+mkdir ceres-solver
+cd ceres-solver
+cmake $CERES_SRC_DIR/ceres-solver -DCMAKE_INSTALL_PREFIX=$VINS_WS/devel
+make
+make install
+cd ../..
+catkin_make -DCeres_DIR=$VINS_WS/devel/lib/cmake/Ceres
+```
+
 ## 3. EuRoC Example
 Download [EuRoC MAV Dataset](http://projects.asl.ethz.ch/datasets/doku.php?id=kmavvisualinertialdatasets) to YOUR_DATASET_FOLDER. Take MH_01 for example, you can run VINS-Fusion with three sensor types (monocular camera + IMU, stereo cameras + IMU and stereo cameras). 
 Open four terminals, run vins odometry, visual loop closure(optional), rviz and play the bag file respectively. 
