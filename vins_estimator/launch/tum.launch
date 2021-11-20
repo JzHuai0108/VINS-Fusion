@@ -1,0 +1,27 @@
+<launch>
+    <arg name="config_path" default = "$(find vins)/../config/tumvi/calibrated_stereo_imu_config.yaml" />
+    <arg name="bag_file" default="/data/tumvi/calibrated/512_16/room/dataset-room1_512_16.bag" />
+    <arg name="bag_start" default="0" />
+    <arg name="bag_duration" default="1e9" />
+    <arg name="show_rviz"   default="true" />
+    <arg name="loop_closure"   default="true" />
+
+    <node name="vins_estimator" pkg="vins" type="vins_node" output="screen"
+       args="$(arg config_path)">
+    </node>
+
+    <group if="$(arg show_rviz)">
+        <node name="rvizvisualisation" pkg="rviz" type="rviz" output="log" 
+        args="-d $(find vins)/../config/vins_rviz_config.rviz" />
+    </group>
+
+    <group if="$(arg loop_closure)">
+        <node name="loop_closure" pkg="loop_fusion" type="loop_fusion_node" output="log" 
+          args="$(arg config_path)" />
+    </group>
+
+    <node name="player" pkg="rosbag" type="play" output="log"
+      args="$(arg bag_file) --start $(arg bag_start) --duration $(arg bag_duration)" 
+      required="true">
+    </node>
+</launch>
