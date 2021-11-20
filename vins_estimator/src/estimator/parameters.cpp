@@ -154,7 +154,7 @@ void readParameters(std::string config_file)
     
     std::string cam0Calib;
     fsSettings["cam0_calib"] >> cam0Calib;
-    std::string cam0Path = configPath + "/" + cam0Calib;
+    std::string cam0Path = cam0Calib;
     CAM_NAMES.push_back(cam0Path);
 
     if(NUM_OF_CAM == 2)
@@ -162,7 +162,7 @@ void readParameters(std::string config_file)
         STEREO = 1;
         std::string cam1Calib;
         fsSettings["cam1_calib"] >> cam1Calib;
-        std::string cam1Path = configPath + "/" + cam1Calib; 
+        std::string cam1Path = cam1Calib; 
         //printf("%s cam1 path\n", cam1Path.c_str() );
         CAM_NAMES.push_back(cam1Path);
         

@@ -445,7 +445,7 @@ int main(int argc, char **argv)
     std::string configPath = config_file.substr(0, pn);
     std::string cam0Calib;
     fsSettings["cam0_calib"] >> cam0Calib;
-    std::string cam0Path = configPath + "/" + cam0Calib;
+    std::string cam0Path = cam0Calib;
     printf("cam calib path: %s\n", cam0Path.c_str());
     m_camera = camodocal::CameraFactory::instance()->generateCameraFromYamlFile(cam0Path.c_str());
 
